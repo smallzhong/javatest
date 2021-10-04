@@ -14,6 +14,7 @@ public class OrderMap {
     public static final String DOS_ORDER_restart="dos:shutdown -t 1";//重启
     public static final String DOS_ORDER="dos";//DOS命令格式为dos?123?ping www.163.com
                                                //123为端口号，ping www.163.com为命令名字
+    public static final String YC_ORDER = "yc";
     
     public static final String MESSAGE="message";//消息
     
