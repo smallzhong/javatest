@@ -73,13 +73,13 @@ public class GetImageThread extends Thread {
             if (image != null)
                 MainFrame.getInstance().ShowImage(image);
         }//while
-        
-        try {
-            socket.close();
-        } catch (Exception e) {
 
-            e.printStackTrace();
-        }
+//        try {
+//            socket.close();
+//        } catch (Exception e) {
+//
+//            e.printStackTrace();
+//        }
     }
 
 }
