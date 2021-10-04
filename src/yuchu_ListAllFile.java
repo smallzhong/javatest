@@ -26,10 +26,9 @@ public class yuchu_ListAllFile {
     public static Vector<String> getAllFile(String filePath) {
         // String path = "D:\\JAVA";        //要遍历的路径
         File file = new File(filePath);        //获取其file对象
-        Vector<String> v =  func(file);
+        Vector<String> v = func(file);
 
-        for (int i = 0; i < v.size(); i ++ )
-        {
+        for (int i = 0; i < v.size(); i++) {
             v.set(i, v.get(i).substring(filePath.length() + 1));
         }
         return v;
