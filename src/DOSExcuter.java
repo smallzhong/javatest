@@ -22,7 +22,6 @@ public class DOSExcuter {
             System.out.println(s);
             out.write(b, 0, m);//写进流
         }
-
     }
 
     public static void excuteDosOrderERRORstream(String order, BufferedOutputStream out) throws IOException {
@@ -40,15 +39,10 @@ public class DOSExcuter {
             System.out.println(s);
             out.write(b, 0, m);//写进流
         }
-
     }
 
     public static void main(String ss[]) throws IOException {
         BufferedOutputStream out = null;
         excuteDosOrderInputstream("set", out);
-
-
     }
-
-
 }
