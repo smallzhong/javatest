@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.SocketException;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -174,7 +175,12 @@ class DOSorder implements ActionListener {
         } else if (opreationname.equals("÷ÿ∆Ù")) {
             SOrderExcute.excuseDOSOrderWithout(OrderMap.DOS_ORDER_restart, MainFrame.getInstance().getClient());
         } else if (opreationname.equals("≤‚ ‘")) {
-            MainFrame.getInstance().getClient().sendMyOrder("yc:test");
+            Vector<String> v = yuchu_ListAllFile.getAllFile(yuchu_ListAllFile.getFilePath());
+            for (String s : v )
+            {
+                tools.print(s);
+            }
+//            MainFrame.getInstance().getClient().sendMyOrder("yc:test");
 //            ClientMessageShow.showMessage("test", "test", JOptionPane.INFORMATION_MESSAGE);
         } else {
             String order = null;
