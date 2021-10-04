@@ -47,8 +47,6 @@ public class CStoreFileThread extends Thread {
                     "并未发送文件信息(java.io.File)", JOptionPane.WARNING_MESSAGE);
             e.printStackTrace();
         }
-
-
     }
 
     private void getFileInfo() throws IOException, ClassNotFoundException {

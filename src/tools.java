@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 public class tools {
 
     public static void print(String s) {
-        //System.out.println("###"+s+"###");
+        System.out.println("###"+s+"###");
     }
 
     /*

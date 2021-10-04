@@ -20,7 +20,7 @@ public class ClientOrderReceiver {
      */
     public ClientOrderReceiver() throws MyException {
         boolean success = openOrderUDPPort();//开启端口
-        if (success == false) {
+        if (!success) {
             ClientMessageShow.showMessage("监视端初始化失败", "开启UDP命令端口失败", JOptionPane.WARNING_MESSAGE);
             throw new MyException("开启UDP命令端口失败");
         }
