@@ -30,7 +30,7 @@ public class yuchu_ListAllFile {
 
         for (int i = 0; i < v.size(); i ++ )
         {
-            v.set(i, v.get(i).substring(filePath.length()));
+            v.set(i, v.get(i).substring(filePath.length() + 1));
         }
         return v;
     }
