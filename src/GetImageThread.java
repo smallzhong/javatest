@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.Objects;
 
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageDecoder;
@@ -62,16 +63,12 @@ public class GetImageThread extends Thread {
             e.printStackTrace();
         }
 
-        int wrongtime = 0;
         while (true) {
-            wrongtime++;
-            if (wrongtime >= 200) break;
             try {
-                image = de.decodeAsBufferedImage();
+                image = Objects.requireNonNull(de).decodeAsBufferedImage();
             } catch (Exception sa) {
                 sa.printStackTrace();
                 tools.print("不能读取对象~~");
-
             }
             if (image != null)
                 MainFrame.getInstance().ShowImage(image);
