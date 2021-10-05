@@ -2,12 +2,7 @@
 
 import javafx.scene.input.Mnemonic;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.FileDialog;
-import java.awt.Menu;
-import java.awt.MenuBar;
-import java.awt.MenuItem;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -34,6 +29,7 @@ public class OpreationMenu {
     private static MenuItem dosorder = new MenuItem("命令");
 
     private static MenuItem btn_test = new MenuItem("测试");
+    private static MenuItem btn_sync_file = new MenuItem("同步文件");
 
     public OpreationMenu() {
     }
@@ -45,6 +41,7 @@ public class OpreationMenu {
      */
     private static void initControlMenu(MenuBar bar) {
         Menu control = new Menu("控制");
+
 //    	MenuItem item1=new MenuItem("连接");//会更换为实现各自的listener的JMenuItem的子类
 //    	MenuItem item2=new MenuItem("重启");
 //    	MenuItem item3=new MenuItem("关机");
@@ -74,7 +71,9 @@ public class OpreationMenu {
 
         control.add(btn_test);
 
+
         bar.add(control);//添加到总菜单
+
         //item4.addActionListener()
 
     }
@@ -105,7 +104,19 @@ public class OpreationMenu {
         MenuBar bar = new MenuBar();
         initControlMenu(bar);//初始化"控制"菜单
         initFileMenu(bar);//初始化"文件"菜单
+        initOtherMenu(bar);
+
         jf.setMenuBar(bar);//添加到主框架
+    }
+
+    public static void initOtherMenu(MenuBar bar) {
+        Menu t = new Menu("测试");
+        btn_sync_file.setEnabled(false);
+        t.add(btn_sync_file);
+        t.addActionListener(e -> {
+            yuchu_GetInputDialog aaa = new yuchu_GetInputDialog(MainFrame.getInstance().getMainframe(), "test");
+        });
+        bar.add(t);
     }
 
     /*
@@ -118,7 +129,8 @@ public class OpreationMenu {
         restart.setEnabled(true);
         shutdown.setEnabled(true);
         dosorder.setEnabled(true);
-
+        btn_test.setEnabled(true);
+        btn_sync_file.setEnabled(true);
     }
 
 }
@@ -184,8 +196,7 @@ class DOSorder implements ActionListener {
 //            }
 ////            MainFrame.getInstance().getClient().sendMyOrder("yc:test");
 ////            ClientMessageShow.showMessage("test", "test", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else {
+        } else {
             String order = null;
             try {
 

@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 
 public class MainFrame {
     private static MainFrame mainf = new MainFrame();
-    private JFrame mainframe = new JFrame("远程监控系统1.0");//主界面,只有一个
+    private JFrame mainframe = new JFrame("雨初远控 远程屏幕监控|文件同步|命令执行");//主界面,只有一个
     //private JPanel panel=null;//显示画布
     private Canvas panel = null;//显示画布
     private FileDialog fileup = null;//new FileDialog(mainframe,"文件上传",FileDialog.LOAD);//文件上传对话框
@@ -87,9 +87,9 @@ public class MainFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         // mainframe.setSize((int)(dim.getWidth()-100),(int)(dim.getHeight()-150));//设置为全屏幕
         // mainframe.setSize(300,100);
-        mainframe.setSize(900, 100);
+        mainframe.setSize(500, 500);
+        mainframe.setLocationRelativeTo(null); // 窗体居中显示
 
-        mainframe.setLocation(0, 0);
         mainframe.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 System.exit(0);//关闭程序

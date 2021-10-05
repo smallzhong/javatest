@@ -1,6 +1,5 @@
 
-import java.awt.BorderLayout;
-import java.awt.Container;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.InetAddress;
@@ -17,7 +16,7 @@ import javax.swing.JTextField;
  */
 public class ConnectClientFrame implements ActionListener {
     private static ConnectClientFrame ccf = new ConnectClientFrame();
-    private JFrame jf = new JFrame("请输入要连接的机器IP地址" + tools.getSystemTime());
+    private JFrame jf = new JFrame("请输入目标IP地址");
     private JTextField jtext = null;//输入ＩＰ地址的
     private MainFrame mf = null;//依赖的主界面
 
@@ -34,16 +33,17 @@ public class ConnectClientFrame implements ActionListener {
      */
     private void initJF() {
         Container con = jf.getContentPane();
-        con.setLayout(new BorderLayout());
+        con.setLayout(new FlowLayout());
         jtext = new JTextField(10);//10列宽的输入框
         jtext.setText("127.0.0.1");//测试
         con.add(jtext, BorderLayout.CENTER);//添加输入框
         JButton jb = new EnterInButton("确定");//按钮
-        jf.setSize(300, 60);//设置大小
+        jf.setSize(350, 150);//设置大小
         jf.setLocation(350, 200);//设置位置
         con.add(jb, BorderLayout.EAST);
-
     }
+
+
 
     /*
      * 显示它
