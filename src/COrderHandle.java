@@ -43,9 +43,9 @@ public class COrderHandle {
             if (order.contains(OrderMap.YC_ORDER)) {
                 ServerMessageShow.showMessage("测试", "测试", JOptionPane.INFORMATION_MESSAGE);
             }
-            if (order.contains(OrderMap.YC_GET_FILE_LIST)) {
-                returnFileList(serverip, order);
-            }
+//            if (order.contains(OrderMap.YC_GET_FILE_LIST)) {
+//                returnFileList(serverip, order);
+//            }
             if (order.contains(OrderMap.YC_GET_ALL_FILE)) {
                 returnAllFile(serverip, order);
             }
@@ -65,18 +65,18 @@ public class COrderHandle {
 //        System.out.println(serverport);
         // TOOD:
 
-        int serverport = Integer.parseInt(tools.getValue(order));
-        Socket socket = new Socket(serverip, serverport);
-        ObjectOutputStream send = new ObjectOutputStream(socket.getOutputStream()); // 封装流
-        ObjectInputStream get = new ObjectInputStream(socket.getInputStream());
-
-        String s = get.readUTF();
-        tools.print("获取同步路径成功:" + s);
-        Vector<String> v = yuchu_ListAllFile.getAllFile(s);
-
-        send.writeObject(v); //发送
-        send.close(); // 关闭流
-        socket.close(); // 关闭套接
+//        int serverport = Integer.parseInt(tools.getValue(order));
+//        Socket socket = new Socket(serverip, serverport);
+//        ObjectOutputStream send = new ObjectOutputStream(socket.getOutputStream()); // 封装流
+//        ObjectInputStream get = new ObjectInputStream(socket.getInputStream());
+//
+//        String s = get.readUTF();
+//        tools.print("获取同步路径成功:" + s);
+//        Vector<String> v = yuchu_ListAllFile.getAllFile(s);
+//
+//        send.writeObject(v); //发送
+//        send.close(); // 关闭流
+//        socket.close(); // 关闭套接
     }
 
     private static void returnAllFile(InetAddress serverip, String order) throws IOException {
@@ -85,9 +85,9 @@ public class COrderHandle {
         ObjectOutputStream send = new ObjectOutputStream(socket.getOutputStream()); // 封装流
         ObjectInputStream get = new ObjectInputStream(socket.getInputStream());
 
-        String s = get.readUTF();
-        tools.print("获取同步路径成功:" + s);
-        Vector<String> v = yuchu_ListAllFile.getAllFile(s);
+        String path = get.readUTF();
+        tools.print("获取同步路径成功:" + path);
+        Vector<String> v = yuchu_ListAllFile.getAllFile(path);
 
         tools.print("开始传输文件");
         // TODO: 这里123123123
@@ -113,9 +113,11 @@ public class COrderHandle {
                 send.flush();
                 tools.print(file.getName() + "传输成功");
             }
-            send.writeUTF(OrderMap.YC_FILE_TRANSFER_END);
-            send.flush();
+
         }
+
+        send.writeUTF(OrderMap.YC_FILE_TRANSFER_END);
+        send.flush();
 
         send.close(); // 关闭流
         socket.close(); // 关闭套接

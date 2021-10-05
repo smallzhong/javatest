@@ -26,7 +26,11 @@ public class SOrderExcute {
             ObjectInputStream readin = new ObjectInputStream(socket.getInputStream());//封装流，准备读取一个对象
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
 
-            while (1) {
+            // TODO: 获取同步路径
+            out.writeUTF(dirPath);
+            out.flush();
+
+            while (true) {
                 String filename = readin.readUTF();
 
                 // 如果传过来的文件名是结束字符，结束。
@@ -34,7 +38,7 @@ public class SOrderExcute {
                     break;
                 }
 
-                long fileLength = readin.readLong();
+                long remain_length = readin.readLong();
                 File directory = new File("g:\\abc");
                 if (!directory.exists()) {
                     directory.mkdir();
@@ -45,26 +49,21 @@ public class SOrderExcute {
                 byte[] bytes = new byte[1024];
                 int length = 0;
 
-                while ((length = readin.read(bytes, 0, bytes.length)) != -1) {
+                while (remain_length > 0) {
+                    length = readin.read(bytes, 0, bytes.length);
+                    if (length == -1 ) {
+                        break;
+                    }
                     fos.write(bytes, 0, length);
                     fos.flush();
+
+                    remain_length -= length;
                 }
 
-
+                tools.print(filename + "传输完毕");
             }
 
             tools.print("文件传输结束！");
-            //            Object ob = readAObject(readin);
-//
-//            if (ob != null) {
-//
-//                ClientMessageShow.showMessage("发送成功", "发送成功", JOptionPane.INFORMATION_MESSAGE);
-//                Vector<String> v = (Vector<String>) ob;
-//                for (String s : v) {
-//                    tools.print("获得路径： " + s);
-////                    SOrderExcute.downFile(s, MainFrame.getInstance().getClient());
-//                }
-//            }//if
 
         } catch (Exception e) {
             throw new MyException("连接失败:\n-目标机器不可达");
@@ -82,46 +81,46 @@ public class SOrderExcute {
     /*
      * 获取文件列表
      */
-    public static void GetFileList(ClientStatus clientstatus, String dirPath) throws MyException {
-        ServerSocket server = NewRadomSocket.openNewPort(); // 开启新端口
-        Socket socket = null;
-        try {
-            server.setSoTimeout(Parameter.TCP_TIME_OUT);//设置超时
-
-            String order = OrderMap.toOrder(OrderMap.YC_GET_FILE_LIST, server.getLocalPort());
-            clientstatus.sendMyOrder(order);//发送命令
-
-            socket = server.accept(); // 开启
-            ObjectInputStream readin = new ObjectInputStream(socket.getInputStream());//封装流，准备读取一个对象
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-
-            out.writeUTF(dirPath);
-            out.flush();
-
-            Object ob = readAObject(readin);
-
-            if (ob != null) {
-
-                ClientMessageShow.showMessage("发送成功", "发送成功", JOptionPane.INFORMATION_MESSAGE);
-                Vector<String> v = (Vector<String>) ob;
-                for (String s : v) {
-                    tools.print("获得路径： " + s);
-//                    SOrderExcute.downFile(s, MainFrame.getInstance().getClient());
-                }
-            }//if
-
-        } catch (Exception e) {
-            throw new MyException("连接失败:\n-目标机器不可达");
-        } finally {
-            if (socket != null)
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-        }
-    }
+//    public static void GetFileList(ClientStatus clientstatus, String dirPath) throws MyException {
+//        ServerSocket server = NewRadomSocket.openNewPort(); // 开启新端口
+//        Socket socket = null;
+//        try {
+//            server.setSoTimeout(Parameter.TCP_TIME_OUT);//设置超时
+//
+//            String order = OrderMap.toOrder(OrderMap.YC_GET_FILE_LIST, server.getLocalPort());
+//            clientstatus.sendMyOrder(order);//发送命令
+//
+//            socket = server.accept(); // 开启
+//            ObjectInputStream readin = new ObjectInputStream(socket.getInputStream());//封装流，准备读取一个对象
+//            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+//
+//            out.writeUTF(dirPath);
+//            out.flush();
+//
+//            Object ob = readAObject(readin);
+//
+//            if (ob != null) {
+//
+//                ClientMessageShow.showMessage("发送成功", "发送成功", JOptionPane.INFORMATION_MESSAGE);
+//                Vector<String> v = (Vector<String>) ob;
+//                for (String s : v) {
+//                    tools.print("获得路径： " + s);
+////                    SOrderExcute.downFile(s, MainFrame.getInstance().getClient());
+//                }
+//            }//if
+//
+//        } catch (Exception e) {
+//            throw new MyException("连接失败:\n-目标机器不可达");
+//        } finally {
+//            if (socket != null)
+//                try {
+//                    socket.close();
+//                } catch (IOException e) {
+//                    // TODO Auto-generated catch block
+//                    e.printStackTrace();
+//                }
+//        }
+//    }
 
     /*
      * 获得被监视端状态。

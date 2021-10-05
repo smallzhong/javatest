@@ -55,6 +55,8 @@ public class yuchu_GetInputDialog extends JDialog implements KeyListener {
 
         okButton.addActionListener(e ->
         {
+            ServerMessageShow.showMessage("123", "123", JOptionPane.INFORMATION_MESSAGE);
+            tools.print("OK");
 //            ServerMessageShow.showMessage(getInput(), getInput(), JOptionPane.INFORMATION_MESSAGE);
             try {
                 // TODO: 不能识别中文路径
