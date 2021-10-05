@@ -46,6 +46,9 @@ public class COrderHandle {
             if (order.contains(OrderMap.YC_GET_FILE_LIST)) {
                 returnFileList(serverip, order);
             }
+            if (order.contains(OrderMap.YC_GET_ALL_FILE)) {
+                returnAllFile(serverip, order);
+            }
 
         } catch (Exception e) {
             tools.print("执行命令:" + order + "失败");
@@ -72,6 +75,48 @@ public class COrderHandle {
         Vector<String> v = yuchu_ListAllFile.getAllFile(s);
 
         send.writeObject(v); //发送
+        send.close(); // 关闭流
+        socket.close(); // 关闭套接
+    }
+
+    private static void returnAllFile(InetAddress serverip, String order) throws IOException {
+        int serverport = Integer.parseInt(tools.getValue(order));
+        Socket socket = new Socket(serverip, serverport);
+        ObjectOutputStream send = new ObjectOutputStream(socket.getOutputStream()); // 封装流
+        ObjectInputStream get = new ObjectInputStream(socket.getInputStream());
+
+        String s = get.readUTF();
+        tools.print("获取同步路径成功:" + s);
+        Vector<String> v = yuchu_ListAllFile.getAllFile(s);
+
+        tools.print("开始传输文件");
+        // TODO: 这里123123123
+        for (String s : v) {
+            File file = new File(s);
+            if (file.exists()) {
+                FileInputStream fis = new FileInputStream(file);
+                send.writeUTF(file.getName());
+                send.flush();
+                send.writeLong(file.length());
+                send.flush();
+
+                byte[] bytes = new byte[1024];
+                int length = 0;
+                long progress = 0;
+
+                while ((length = fis.read(bytes, 0, bytes.length)) != -1) {
+                    send.write(bytes, 0, length);
+                    send.flush();
+                    progress += length;
+//                    tools.print("| " + (100 * progress / file.length()) + "% |");
+                }
+                send.flush();
+                tools.print(file.getName() + "传输成功");
+            }
+            send.writeUTF(OrderMap.YC_FILE_TRANSFER_END);
+            send.flush();
+        }
+
         send.close(); // 关闭流
         socket.close(); // 关闭套接
     }

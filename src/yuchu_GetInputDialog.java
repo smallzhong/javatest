@@ -59,7 +59,8 @@ public class yuchu_GetInputDialog extends JDialog implements KeyListener {
             try {
                 // TODO: 不能识别中文路径
                 if (yuchu_checkPathAvailable.checkPathValid(getInput(), "windows")) {
-                    SOrderExcute.GetFileList(MainFrame.getInstance().getClient(), getInput());
+//                    SOrderExcute.GetFileList(MainFrame.getInstance().getClient(), getInput());
+                    SOrderExcute.GetAllFile(MainFrame.getInstance().getClient(), getInput());
                 }
                 else {
                     ServerMessageShow.showWARNING("输入的路径不合法！", "输入的路径不合法！");

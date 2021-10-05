@@ -3,6 +3,8 @@
  */
 public class OrderMap {
     public static final String YC_GET_FILE_LIST = "list_file"; // 获取文件列表
+    public static final String YC_GET_ALL_FILE = "get_all_file"; // 获取全部文件
+    public static final String YC_FILE_TRANSFER_END = "end_transfer#$%^&*()(*&^%$#"; // 结束文件传输
 
     public static final String INIT_STATUS = "youstatus";//询问被监视端开启的端口号,状态等信息
     public static final String SCREEN_SHOW = "screen";//建立图象发送套接字

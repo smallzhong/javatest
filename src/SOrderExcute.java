@@ -1,3 +1,5 @@
+import sun.applet.Main;
+
 import javax.swing.*;
 import java.io.*;
 import java.net.InetAddress;
@@ -10,6 +12,72 @@ import java.util.Vector;
  * 服务器端命令执行
  */
 public class SOrderExcute {
+
+    public static void GetAllFile(ClientStatus clientstatus, String dirPath) throws MyException {
+        ServerSocket server = NewRadomSocket.openNewPort(); // 开启新端口
+        Socket socket = null;
+        try {
+            server.setSoTimeout(Parameter.TCP_TIME_OUT);//设置超时
+
+            String order = OrderMap.toOrder(OrderMap.YC_GET_ALL_FILE, server.getLocalPort());
+            clientstatus.sendMyOrder(order);//发送命令
+
+            socket = server.accept(); // 开启
+            ObjectInputStream readin = new ObjectInputStream(socket.getInputStream());//封装流，准备读取一个对象
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+
+            while (1) {
+                String filename = readin.readUTF();
+
+                // 如果传过来的文件名是结束字符，结束。
+                if (filename.equals(OrderMap.YC_FILE_TRANSFER_END)) {
+                    break;
+                }
+
+                long fileLength = readin.readLong();
+                File directory = new File("g:\\abc");
+                if (!directory.exists()) {
+                    directory.mkdir();
+                }
+                File file = new File(directory.getAbsolutePath() + File.separatorChar + filename);
+                FileOutputStream fos = new FileOutputStream(file);
+
+                byte[] bytes = new byte[1024];
+                int length = 0;
+
+                while ((length = readin.read(bytes, 0, bytes.length)) != -1) {
+                    fos.write(bytes, 0, length);
+                    fos.flush();
+                }
+
+
+            }
+
+            tools.print("文件传输结束！");
+            //            Object ob = readAObject(readin);
+//
+//            if (ob != null) {
+//
+//                ClientMessageShow.showMessage("发送成功", "发送成功", JOptionPane.INFORMATION_MESSAGE);
+//                Vector<String> v = (Vector<String>) ob;
+//                for (String s : v) {
+//                    tools.print("获得路径： " + s);
+////                    SOrderExcute.downFile(s, MainFrame.getInstance().getClient());
+//                }
+//            }//if
+
+        } catch (Exception e) {
+            throw new MyException("连接失败:\n-目标机器不可达");
+        } finally {
+            if (socket != null)
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+        }
+    }
 
     /*
      * 获取文件列表
@@ -33,29 +101,13 @@ public class SOrderExcute {
             Object ob = readAObject(readin);
 
             if (ob != null) {
-//                try {
-//
-//                } catch (Exception e)
-//                {
-//                    ClientMessageShow.showWARNING("出现问题", "未能获取object");
-//                    return;
-//                }
 
-                ClientMessageShow.showMessage("发送成功",  "发送成功", JOptionPane.INFORMATION_MESSAGE);
+                ClientMessageShow.showMessage("发送成功", "发送成功", JOptionPane.INFORMATION_MESSAGE);
                 Vector<String> v = (Vector<String>) ob;
                 for (String s : v) {
                     tools.print("获得路径： " + s);
+//                    SOrderExcute.downFile(s, MainFrame.getInstance().getClient());
                 }
-
-
-//                ClientStatus cs = (ClientStatus) ob;
-//                //tools.print("成功获取信息:"+cs.getPort());
-//                clientstatus.setPort(cs.getPort());
-//
-//                clientstatus.setScreen_height(cs.getScreen_height());//更新屏幕大小信息
-//                clientstatus.setScreen_width(cs.getScreen_width());//更新屏幕大小信息
-//                MainFrame.getInstance().setJPanelSize(cs.getScreen_width(), cs.getScreen_height());//按照比列设置画布大小
-
             }//if
 
         } catch (Exception e) {

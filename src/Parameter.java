@@ -15,7 +15,7 @@ public class Parameter {
 	public static final int EVENT_CACHE=1024*5;//事件发送，接收缓存大小
 	
 	public static final int IMAGE_get_time=1000;//采集图象时间间隔
-	private  static  String UPFILE_PATH="C://abc"+File.separator;//文件上传默认保存路径
+	private  static  String UPFILE_PATH="g://abc"+File.separator;//文件上传默认保存路径
 	
 	public static final int FILE_NOT_EXITS=1;//文件不存在
 	public static final int FILE_EXITS=3;//文件存在
