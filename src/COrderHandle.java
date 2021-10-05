@@ -63,12 +63,8 @@ public class COrderHandle {
     private static void returnFileList(InetAddress serverip, String order) throws IOException {
 //        tools.print((String)serverport);
 //        System.out.println(serverport);
-        Vector<String> v = new Vector<String>();
-        v.add("1");
-        v.add("2");
-        v.add("3");
-        v.add("4");
-        v.add("5");
+        // TOOD:
+        Vector<String> v = yuchu_ListAllFile.getAllFile("G:\\javatest\\out\\artifacts");
 
         int serverport = Integer.parseInt(tools.getValue(order));
         Socket socket = new Socket(serverip, serverport);
