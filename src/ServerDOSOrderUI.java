@@ -1,8 +1,4 @@
-import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Container;
-import java.awt.Dialog;
-import java.awt.TextArea;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,9 +18,11 @@ public class ServerDOSOrderUI  {
 		Button bt=new Button("¹Ø±Õ");
 		bt.addActionListener(new btlis(this));
 		Container con=cjf.getContentPane();
-		con.setLayout(new BorderLayout());
-		con.add(textinfo,BorderLayout.CENTER);
-		con.add(bt,BorderLayout.SOUTH);
+		con.setLayout(new FlowLayout());
+//		con.add(textinfo,BorderLayout.CENTER);
+		con.add(textinfo);
+//		con.add(bt,BorderLayout.SOUTH);
+		con.add(bt);
 		cjf.setSize(300,300);
 		tools.setInCenter(cjf);
 		cjf.setVisible(true);
