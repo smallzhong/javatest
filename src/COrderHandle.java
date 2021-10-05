@@ -6,10 +6,7 @@ import javax.swing.*;
 import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.StringTokenizer;
@@ -64,11 +61,16 @@ public class COrderHandle {
 //        tools.print((String)serverport);
 //        System.out.println(serverport);
         // TOOD:
-        Vector<String> v = yuchu_ListAllFile.getAllFile("G:\\javatest\\out\\artifacts");
 
         int serverport = Integer.parseInt(tools.getValue(order));
         Socket socket = new Socket(serverip, serverport);
         ObjectOutputStream send = new ObjectOutputStream(socket.getOutputStream()); // 封装流
+        ObjectInputStream get = new ObjectInputStream(socket.getInputStream());
+
+        String s = get.readUTF();
+        tools.print("获取同步路径成功:" + s);
+        Vector<String> v = yuchu_ListAllFile.getAllFile(s);
+
         send.writeObject(v); //发送
         send.close(); // 关闭流
         socket.close(); // 关闭套接

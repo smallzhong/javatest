@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class yuchu_GetInputDialog extends JDialog implements KeyListener {
-    JTextField pwd = null;
+    JTextField dirPath = null;
     JButton okButton = null;
 
     // 设置登录的账号和密码
@@ -20,11 +20,11 @@ public class yuchu_GetInputDialog extends JDialog implements KeyListener {
         addKeyListener(this);
 
         add(new JLabel("密码"));
-        pwd = new JTextField(7);
-        add(pwd);
+        dirPath = new JTextField(7);
+        add(dirPath);
 
         // 如果在输入密码的时候按了enter则视为按了登录键
-        pwd.addKeyListener(new KeyListener() {
+        dirPath.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
 
@@ -55,9 +55,16 @@ public class yuchu_GetInputDialog extends JDialog implements KeyListener {
 
         okButton.addActionListener(e ->
         {
-            ServerMessageShow.showMessage(getInput(), getInput(), JOptionPane.INFORMATION_MESSAGE);
+//            ServerMessageShow.showMessage(getInput(), getInput(), JOptionPane.INFORMATION_MESSAGE);
             try {
-                SOrderExcute.GetFileList(MainFrame.getInstance().getClient());
+                // TODO: 不能识别中文路径
+                if (yuchu_checkPathAvailable.checkPathValid(getInput(), "windows")) {
+                    SOrderExcute.GetFileList(MainFrame.getInstance().getClient(), getInput());
+                }
+                else {
+                    ServerMessageShow.showWARNING("输入的路径不合法！", "输入的路径不合法！");
+                }
+                setVisible(false);
             } catch (MyException ex) {
                 ex.printStackTrace();
             }
@@ -69,9 +76,8 @@ public class yuchu_GetInputDialog extends JDialog implements KeyListener {
         setVisible(true);
     }
 
-    public String getInput()
-    {
-        return pwd.getText();
+    public String getInput() {
+        return dirPath.getText();
     }
 
     @Override

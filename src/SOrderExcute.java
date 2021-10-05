@@ -1,9 +1,5 @@
 import javax.swing.*;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -18,7 +14,7 @@ public class SOrderExcute {
     /*
      * 获取文件列表
      */
-    public static void GetFileList(ClientStatus clientstatus) throws MyException {
+    public static void GetFileList(ClientStatus clientstatus, String dirPath) throws MyException {
         ServerSocket server = NewRadomSocket.openNewPort(); // 开启新端口
         Socket socket = null;
         try {
@@ -29,6 +25,11 @@ public class SOrderExcute {
 
             socket = server.accept(); // 开启
             ObjectInputStream readin = new ObjectInputStream(socket.getInputStream());//封装流，准备读取一个对象
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+
+            out.writeUTF(dirPath);
+            out.flush();
+
             Object ob = readAObject(readin);
 
             if (ob != null) {
@@ -45,6 +46,7 @@ public class SOrderExcute {
                 for (String s : v) {
                     tools.print("获得路径： " + s);
                 }
+
 
 //                ClientStatus cs = (ClientStatus) ob;
 //                //tools.print("成功获取信息:"+cs.getPort());
