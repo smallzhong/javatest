@@ -159,10 +159,7 @@ class FileupLoad implements ActionListener {
             MainFrame.getInstance().showMessage("错误", "传输中发生网络错误，文件上传失败", JOptionPane.WARNING_MESSAGE);
             e.printStackTrace();
         }
-
     }
-
-
 }
 
 //文件下载事件响应
