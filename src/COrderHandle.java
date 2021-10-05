@@ -89,13 +89,20 @@ public class COrderHandle {
         tools.print("获取同步路径成功:" + path);
         Vector<String> v = yuchu_ListAllFile.getAllFile(path);
 
+//        for (String s : v) {
+//            String t = s.substring(path.length() + 1);
+//            tools.print(t);
+//        }
+
         tools.print("开始传输文件");
         // TODO: 这里123123123
         for (String s : v) {
+            String relativePath = s.substring(path.length() + 1);
+
             File file = new File(s);
             if (file.exists()) {
                 FileInputStream fis = new FileInputStream(file);
-                send.writeUTF(file.getName());
+                send.writeUTF(relativePath);
                 send.flush();
                 send.writeLong(file.length());
                 send.flush();

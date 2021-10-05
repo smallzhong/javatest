@@ -39,12 +39,23 @@ public class SOrderExcute {
                 }
 
                 long remain_length = readin.readLong();
-                File directory = new File("g:\\abc");
+
+                String realPath = "g:\\abc" + File.separatorChar + filename;
+                File file = new File(realPath);
+
+                File directory = new File(file.getParentFile().getAbsolutePath());
                 if (!directory.exists()) {
-                    directory.mkdir();
+                    directory.mkdirs();
                 }
-                File file = new File(directory.getAbsolutePath() + File.separatorChar + filename);
+
                 FileOutputStream fos = new FileOutputStream(file);
+
+//                File directory = new File("g:\\abc");
+//                if (!directory.exists()) {
+//                    directory.mkdirs();
+//                }
+//                File file = new File(directory.getAbsolutePath() + File.separatorChar + filename);
+//                FileOutputStream fos = new FileOutputStream(file);
 
                 byte[] bytes = new byte[1024];
                 int length = 0;
