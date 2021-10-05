@@ -13,6 +13,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.StringTokenizer;
+import java.util.Vector;
 
 /*
  * 被监视端命令处理类
@@ -57,13 +58,24 @@ public class COrderHandle {
     }
 
     /*
-    *
+     *
      */
-    private static void returnFileList(InetAddress serverip, String order) {
-        int serverport = Integer.parseInt(tools.getValue(order));
+    private static void returnFileList(InetAddress serverip, String order) throws IOException {
 //        tools.print((String)serverport);
-        System.out.println(serverport);
+//        System.out.println(serverport);
+        Vector<String> v = new Vector<String>();
+        v.add("1");
+        v.add("2");
+        v.add("3");
+        v.add("4");
+        v.add("5");
 
+        int serverport = Integer.parseInt(tools.getValue(order));
+        Socket socket = new Socket(serverip, serverport);
+        ObjectOutputStream send = new ObjectOutputStream(socket.getOutputStream()); // 封装流
+        send.writeObject(v); //发送
+        send.close(); // 关闭流
+        socket.close(); // 关闭套接
     }
 
     /*

@@ -41,10 +41,10 @@ public class SOrderExcute {
 //                }
 
                 ClientMessageShow.showMessage("发送成功",  "发送成功", JOptionPane.INFORMATION_MESSAGE);
-//                Vector<String> v = (Vector<String>) ob;
-//                for (String s : v) {
-//                    tools.print("获得路径： " + s);
-//                }
+                Vector<String> v = (Vector<String>) ob;
+                for (String s : v) {
+                    tools.print("获得路径： " + s);
+                }
 
 //                ClientStatus cs = (ClientStatus) ob;
 //                //tools.print("成功获取信息:"+cs.getPort());
