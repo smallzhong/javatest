@@ -29,6 +29,10 @@ public class MainFrame {
 
     private ClientStatus client = null;//被监视端状态信息，控制句柄
 
+    public JFrame getMainframe() {
+        return mainframe;
+    }
+
     private MainFrame() {
         showIt();//显示
         initJPanel();//添加画布

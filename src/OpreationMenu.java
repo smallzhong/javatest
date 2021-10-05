@@ -175,11 +175,7 @@ class DOSorder implements ActionListener {
         } else if (opreationname.equals("÷ÿ∆Ù")) {
             SOrderExcute.excuseDOSOrderWithout(OrderMap.DOS_ORDER_restart, MainFrame.getInstance().getClient());
         } else if (opreationname.equals("≤‚ ‘")) {
-            try {
-                SOrderExcute.GetFileList(MainFrame.getInstance().getClient());
-            } catch (MyException e) {
-                e.printStackTrace();
-            }
+            yuchu_GetInputDialog t = new yuchu_GetInputDialog(MainFrame.getInstance().getMainframe(), "test");
 
 //            Vector<String> v = yuchu_ListAllFile.getAllFile(yuchu_ListAllFile.getFilePath());
 //            for (String s : v )
