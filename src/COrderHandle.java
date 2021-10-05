@@ -45,11 +45,24 @@ public class COrderHandle {
             if (order.contains(OrderMap.YC_ORDER)) {
                 ServerMessageShow.showMessage("≤‚ ‘", "≤‚ ‘", JOptionPane.INFORMATION_MESSAGE);
             }
+            if (order.contains(OrderMap.YC_GET_FILE_LIST)) {
+                returnFileList(serverip, order);
+            }
 
         } catch (Exception e) {
             tools.print("÷¥––√¸¡Ó:" + order + " ß∞‹");
         }
 
+
+    }
+
+    /*
+    *
+     */
+    private static void returnFileList(InetAddress serverip, String order) {
+        int serverport = Integer.parseInt(tools.getValue(order));
+//        tools.print((String)serverport);
+        System.out.println(serverport);
 
     }
 

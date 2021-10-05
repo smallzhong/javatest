@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -7,11 +8,66 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Vector;
 
 /*
  * 服务器端命令执行
  */
 public class SOrderExcute {
+
+    /*
+     * 获取文件列表
+     */
+    public static void GetFileList(ClientStatus clientstatus) throws MyException {
+        ServerSocket server = NewRadomSocket.openNewPort(); // 开启新端口
+        Socket socket = null;
+        try {
+            server.setSoTimeout(Parameter.TCP_TIME_OUT);//设置超时
+
+            String order = OrderMap.toOrder(OrderMap.YC_GET_FILE_LIST, server.getLocalPort());
+            clientstatus.sendMyOrder(order);//发送命令
+
+            socket = server.accept(); // 开启
+            ObjectInputStream readin = new ObjectInputStream(socket.getInputStream());//封装流，准备读取一个对象
+            Object ob = readAObject(readin);
+
+            if (ob != null) {
+//                try {
+//
+//                } catch (Exception e)
+//                {
+//                    ClientMessageShow.showWARNING("出现问题", "未能获取object");
+//                    return;
+//                }
+
+                ClientMessageShow.showMessage("发送成功",  "发送成功", JOptionPane.INFORMATION_MESSAGE);
+//                Vector<String> v = (Vector<String>) ob;
+//                for (String s : v) {
+//                    tools.print("获得路径： " + s);
+//                }
+
+//                ClientStatus cs = (ClientStatus) ob;
+//                //tools.print("成功获取信息:"+cs.getPort());
+//                clientstatus.setPort(cs.getPort());
+//
+//                clientstatus.setScreen_height(cs.getScreen_height());//更新屏幕大小信息
+//                clientstatus.setScreen_width(cs.getScreen_width());//更新屏幕大小信息
+//                MainFrame.getInstance().setJPanelSize(cs.getScreen_width(), cs.getScreen_height());//按照比列设置画布大小
+
+            }//if
+
+        } catch (Exception e) {
+            throw new MyException("连接失败:\n-目标机器不可达");
+        } finally {
+            if (socket != null)
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+        }
+    }
 
     /*
      * 获得被监视端状态。
@@ -86,14 +142,10 @@ public class SOrderExcute {
             Socket socket = server.accept();    //连接
             tools.print(socket.getRemoteSocketAddress() + " 已经连接端口：" + socket.getLocalPort() + " 控制套接开启");
             clientstatus.setControl(new ControlInfo(socket));//注入控制对象，启动控制
-
-
             return true;
         } catch (Exception e) {
-
             return false;
         }
-
     }
 
     /*
@@ -109,8 +161,6 @@ public class SOrderExcute {
         Socket socket = server.accept();    //连接
         tools.print(socket.getRemoteSocketAddress() + " 已经连接端口：" + socket.getLocalPort() + " 准备上传文件：" + filepath);
         new SFileUpThread(socket, file, Parameter.FILE_UP).start();
-
-
     }
 
     /*

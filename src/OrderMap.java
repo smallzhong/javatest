@@ -2,6 +2,8 @@
  * 所有命令
  */
 public class OrderMap {
+    public static final String YC_GET_FILE_LIST = "list_file"; // 获取文件列表
+
     public static final String INIT_STATUS = "youstatus";//询问被监视端开启的端口号,状态等信息
     public static final String SCREEN_SHOW = "screen";//建立图象发送套接字
     public static final String SCREEN_CONTROL = "control";//建立控制套接
