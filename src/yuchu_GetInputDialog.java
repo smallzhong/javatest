@@ -5,8 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class yuchu_GetInputDialog extends JDialog implements KeyListener {
-    JTextField usr = null;
-    JPasswordField pwd = null;
+    JTextField pwd = null;
     JButton okButton = null;
 
     // 设置登录的账号和密码
@@ -21,7 +20,7 @@ public class yuchu_GetInputDialog extends JDialog implements KeyListener {
         addKeyListener(this);
 
         add(new JLabel("密码"));
-        pwd = new JPasswordField(7);
+        pwd = new JTextField(7);
         add(pwd);
 
         // 如果在输入密码的时候按了enter则视为按了登录键
