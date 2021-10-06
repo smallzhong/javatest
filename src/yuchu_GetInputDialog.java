@@ -14,13 +14,13 @@ public class yuchu_GetInputDialog extends JDialog implements KeyListener {
 
     public yuchu_GetInputDialog(JFrame owner, String my_title) {
         super(owner, my_title);
-        this.setSize(300, 100);
+        this.setSize(500, 200);
 
         // 增加按键捕捉
         addKeyListener(this);
 
-        add(new JLabel("密码"));
-        dirPath = new JTextField(7);
+        add(new JLabel("需要同步的被控端文件夹"));
+        dirPath = new JTextField(20);
         add(dirPath);
 
         // 如果在输入密码的时候按了enter则视为按了登录键
@@ -43,7 +43,7 @@ public class yuchu_GetInputDialog extends JDialog implements KeyListener {
             }
         });
 
-        JButton okButton = new JButton("登录");
+        JButton okButton = new JButton("开始文件同步");
         add(okButton);
 
         // 设置为流式布局
@@ -55,7 +55,7 @@ public class yuchu_GetInputDialog extends JDialog implements KeyListener {
 
         okButton.addActionListener(e ->
         {
-            ServerMessageShow.showMessage("123", "123", JOptionPane.INFORMATION_MESSAGE);
+//            ServerMessageShow.showMessage("123", "123", JOptionPane.INFORMATION_MESSAGE);
             tools.print("OK");
 //            ServerMessageShow.showMessage(getInput(), getInput(), JOptionPane.INFORMATION_MESSAGE);
             try {

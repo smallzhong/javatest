@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 /*
- * 弹出"连接"对话框，输入ＩＰ地址
+ * 弹出"连接"对话框，输入IP地址
  * 单子模式哦
  */
 public class ConnectClientFrame implements ActionListener {

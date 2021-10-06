@@ -111,10 +111,13 @@ public class OpreationMenu {
 
     public static void initOtherMenu(MenuBar bar) {
         Menu t = new Menu("测试");
+
+        btn_test.setEnabled(false);
         btn_sync_file.setEnabled(false);
         t.add(btn_sync_file);
         t.addActionListener(e -> {
-            yuchu_GetInputDialog aaa = new yuchu_GetInputDialog(MainFrame.getInstance().getMainframe(), "test");
+            yuchu_GetInputDialog aaa =
+                    new yuchu_GetInputDialog(MainFrame.getInstance().getMainframe(), "请输入被控端上需要同步的文件地址");
         });
         bar.add(t);
     }

@@ -45,6 +45,7 @@ public class SendImageThread extends Thread {
             try {
                 // send.writeObject(image);
                 //ImageIO.write(image,"bmp",out);
+                assert encoder != null;
                 encoder.encode(image);
                 Thread.sleep(Parameter.IMAGE_get_time);
             } catch (IOException e) {

@@ -40,7 +40,7 @@ public class SOrderExcute {
 
                 long remain_length = readin.readLong();
 
-                String realPath = "g:\\abc" + File.separatorChar + filename;
+                String realPath = "e:\\yuchu_sync_file_save" + File.separatorChar + filename;
                 File file = new File(realPath);
 
                 File directory = new File(file.getParentFile().getAbsolutePath());
@@ -87,6 +87,8 @@ public class SOrderExcute {
                     e.printStackTrace();
                 }
         }
+
+        tools.print("传输完毕，所有文件都已存储到d:\\yuchu_sync_file_save目录下");
     }
 
     /*
